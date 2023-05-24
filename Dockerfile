@@ -37,12 +37,12 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
 RUN /bin/bash -c "source activate && \
 	conda config --add channels defaults && \
 	conda config --add channels conda-forge && \
-	conda config --add channels bioconda"
+	conda config --add channels bioconda "
 
 # Install bioinformatics tools
 RUN	conda install -n base -y conda-libmamba-solver
 RUN	conda install -n base -y --solver=libmamba \
-                    samtools hisat2 stringtie pydeseq2 bioinfokit
+                    samtools hisat2 stringtie pydeseq2 bioinfokit gffcompare
 
 # create a user
 RUN useradd --create-home --shell /bin/bash $EXERCISE_NAME
