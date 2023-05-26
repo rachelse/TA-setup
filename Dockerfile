@@ -6,7 +6,7 @@
 # Description:                                                                 #
 #     This code is written as part of project "introbioinfo-exercise06-setup". #
 # ---                                                                          #
-# Last Modified: 2023-05-21                                                    #
+# Last Modified: 2023-05-25                                                    #
 # Modified By: Seongeun Kim (eunbelivable@snu.ac.kr)                           #
 # ---                                                                          #
 # Copyright © 2023 Seongeun Kim, All rights reserved                           #
@@ -20,7 +20,7 @@ ENV PATH /opt/conda/bin:$PATH
 
 # Install dependencies
 RUN apt-get update --fix-missing && \
-	apt-get install -y build-essential wget gzip tar zip bzip2 curl git file vim nano iputils-ping && \
+	apt-get install -y build-essential wget gzip tar zip bzip2 curl git file vim nano iputils-ping  && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
 
@@ -42,7 +42,11 @@ RUN /bin/bash -c "source activate && \
 # Install bioinformatics tools
 RUN	conda install -n base -y conda-libmamba-solver
 RUN	conda install -n base -y --solver=libmamba \
-                    samtools hisat2 stringtie pydeseq2 bioinfokit gffcompare
+                    samtools hisat2 stringtie
+RUN pip install pydeseq2
+RUN conda install -c conda-forge gcc=12.1.0
+
+
 
 # create a user
 RUN useradd --create-home --shell /bin/bash $EXERCISE_NAME
